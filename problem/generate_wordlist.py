@@ -11,7 +11,9 @@ with open(INPUT_FILE, 'r') as words_alpha, open('wordlist.txt', 'w+') as wf:
     writer = csv.writer(wf)
     writer.writerow(['word', 'pos'])
     for word in tqdm(words_alpha, total=input_len):
-        word, pos = pos_tag([word.strip()])[0]  # OPTM: batch the input
+        word = word.strip()
+        if len(word) < 3: continue
+        _, pos = pos_tag([word])[0]  # OPTM: batch the input
         mask = 0
         if pos == 'NN':
             # print('NOUN', word)
